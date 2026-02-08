@@ -101,7 +101,7 @@
 - [x] **seed() 호출 연결** → `src/index.ts`에서 seed() import 및 호출 완료
 - [x] 학생 API (GET /students)
 - [x] 교수 API (GET /professors)
-- [ ] 강좌 API (GET /courses)
+- [x] 강좌 API (GET /courses)
 - [ ] 수강신청 API (POST /enrollments)
 - [ ] 수강취소 API (DELETE /enrollments/:id)
 - [ ] 내 시간표 API (GET /students/:id/enrollments)
@@ -119,6 +119,7 @@
 - [x] 헬스체크 테스트 작성
 - [x] 학생 목록 테스트 작성
 - [x] 교수 목록 테스트 작성
+- [x] 강좌 목록 테스트 작성
 - [ ] 동시성 테스트 작성
 - [ ] 비즈니스 로직 테스트 작성
 - [ ] docs/API.md 작성
