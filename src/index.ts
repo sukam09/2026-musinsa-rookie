@@ -1,8 +1,10 @@
 import { createApp } from './app';
+import { seed } from './db/seed';
 
 const PORT = 3000;
 
 function main(): void {
+  seed();
   const app = createApp();
 
   app.listen(PORT, () => {
