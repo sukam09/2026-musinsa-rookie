@@ -79,7 +79,7 @@
 
 ## 작업 진행 상황
 
-### Phase 1: 프로젝트 설정
+### Phase 1: 프로젝트 설정 ✅
 
 - [x] 요구사항 분석
 - [x] 기술 스택 결정
@@ -88,16 +88,17 @@
 - [x] CLAUDE.md 작성
 - [x] docs/REQUIREMENTS.md 기술 스택 섹션 작성
 
-### Phase 2: 핵심 구조 구현
+### Phase 2: 핵심 구조 구현 ✅
 
-- [ ] 데이터 모델 정의 (types, models)
-- [ ] 인메모리 DB 구현 (repositories)
-- [ ] 초기 데이터 생성 로직
+- [x] 데이터 모델 정의 → `src/types/index.ts`, `src/constants/*.ts`
+- [x] 인메모리 DB 구현 → `src/db/database.ts` (싱글톤), `src/repositories/*.ts`
+- [x] 초기 데이터 생성 로직 → `src/db/seed.ts` (결정론적 생성)
 
-### Phase 3: API 구현
+### Phase 3: API 구현 🔄
 
-- [ ] Express 앱 설정 (app.ts)
-- [ ] 헬스체크 API (GET /health)
+- [x] Express 앱 설정 → `src/app.ts`
+- [x] 헬스체크 API (GET /health)
+- [ ] **seed() 호출 연결** → `src/index.ts`에서 seed() import 및 호출 필요
 - [ ] 학생 API (GET /students)
 - [ ] 교수 API (GET /professors)
 - [ ] 강좌 API (GET /courses)
@@ -119,3 +120,45 @@
 - [ ] 비즈니스 로직 테스트 작성
 - [ ] docs/API.md 작성
 - [ ] docs/REQUIREMENTS.md 완성
+
+---
+
+## 에이전트 인수인계 (Claude Code → Codex)
+
+### 즉시 해야 할 작업
+
+1. **seed() 호출 연결**: `src/index.ts`에서 seed 함수를 import하고 서버 시작 전에 호출해야 함
+   ```typescript
+   import { seed } from './db/seed';
+   seed();
+   ```
+
+2. **서버 실행 테스트**: `npm run dev`로 서버 시작 후 `GET /health` 응답 확인
+
+### 구현된 파일 구조
+
+```
+src/
+├── app.ts              # Express 앱 설정, 헬스체크 API
+├── index.ts            # 서버 시작점 (seed 호출 필요)
+├── types/index.ts      # 엔티티 타입 정의
+├── constants/          # 상수 데이터
+│   ├── departments.ts  # 10개 학과명
+│   ├── names.ts        # 성/이름 목록
+│   ├── courses.ts      # 학과별 강좌명
+│   └── schedule.ts     # 요일/교시 정의
+├── db/
+│   ├── database.ts     # 싱글톤 인메모리 DB (Map 기반)
+│   └── seed.ts         # 초기 데이터 생성 (결정론적)
+└── repositories/       # 데이터 접근 계층
+    ├── departmentRepository.ts
+    ├── professorRepository.ts
+    ├── studentRepository.ts
+    ├── courseRepository.ts
+    └── enrollmentRepository.ts
+```
+
+### 참고 문서
+
+- 설계 결정 사항: `docs/REQUIREMENTS.md`
+- 데이터 규모: 10개 학과, 100명 교수, 10,000명 학생, 500개 강좌
