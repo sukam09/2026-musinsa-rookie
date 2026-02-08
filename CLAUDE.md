@@ -100,7 +100,7 @@
 - [x] 헬스체크 API (GET /health)
 - [x] **seed() 호출 연결** → `src/index.ts`에서 seed() import 및 호출 완료
 - [x] 학생 API (GET /students)
-- [ ] 교수 API (GET /professors)
+- [x] 교수 API (GET /professors)
 - [ ] 강좌 API (GET /courses)
 - [ ] 수강신청 API (POST /enrollments)
 - [ ] 수강취소 API (DELETE /enrollments/:id)
@@ -118,6 +118,7 @@
 - [x] Jest 설정
 - [x] 헬스체크 테스트 작성
 - [x] 학생 목록 테스트 작성
+- [x] 교수 목록 테스트 작성
 - [ ] 동시성 테스트 작성
 - [ ] 비즈니스 로직 테스트 작성
 - [ ] docs/API.md 작성

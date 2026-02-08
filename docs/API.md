@@ -74,6 +74,37 @@ http://localhost:3000
 
 ### 교수 API
 
+**GET /professors**
+
+교수 목록을 조회합니다. `departmentId`로 학과별 필터링이 가능합니다.
+
+#### Query Parameters
+
+| 이름 | 타입 | 필수 | 설명 |
+|------|------|------|------|
+| departmentId | number | 선택 | 학과 ID (양의 정수) |
+
+#### 성공 응답
+
+- 상태 코드: `200 OK`
+- 응답 예시:
+  ```
+  [
+    {
+      "id": 1,
+      "name": "김영훈",
+      "departmentId": 1
+    }
+  ]
+  ```
+
+#### 에러 응답
+
+- `400 Bad Request`: `departmentId`가 양의 정수가 아닌 경우
+  ```
+  { "message": "departmentId는 양의 정수여야 합니다." }
+  ```
+
 ### 수강신청 API
 
 ### 시간표 API
