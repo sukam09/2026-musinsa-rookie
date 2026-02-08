@@ -222,3 +222,80 @@ http://localhost:3000
   ```
 
 ### 시간표 API
+
+**GET /students/:id/enrollments**
+
+학생의 시간표(수강 내역)를 조회합니다.
+
+#### Path Parameters
+
+| 이름 | 타입 | 필수 | 설명 |
+|------|------|------|------|
+| id | number | 필수 | 학생 ID (양의 정수) |
+
+#### 성공 응답
+
+- 상태 코드: `200 OK`
+- 응답 스키마 (옵션 B)
+  - 배열 요소 예시:
+  ```
+  {
+    "enrollmentId": 1,
+    "studentId": 10,
+    "course": {
+      "id": 25,
+      "name": "자료구조 1",
+      "credits": 3,
+      "departmentId": 1,
+      "professorId": 7,
+      "schedule": ["MON_1", "WED_1"]
+    },
+    "enrolledAt": "2026-02-08T09:00:00.000Z"
+  }
+  ```
+- 여러 항목이 있을 때의 응답 예시:
+  ```
+  [
+    {
+      "enrollmentId": 1,
+      "studentId": 10,
+      "course": {
+        "id": 25,
+        "name": "자료구조 1",
+        "credits": 3,
+        "departmentId": 1,
+        "professorId": 7,
+        "schedule": ["MON_1", "WED_1"]
+      },
+      "enrolledAt": "2026-02-08T09:00:00.000Z"
+    },
+    {
+      "enrollmentId": 2,
+      "studentId": 10,
+      "course": {
+        "id": 31,
+        "name": "운영체제 1",
+        "credits": 3,
+        "departmentId": 1,
+        "professorId": 12,
+        "schedule": ["TUE_2", "THU_2"]
+      },
+      "enrolledAt": "2026-02-08T10:00:00.000Z"
+    }
+  ]
+  ```
+
+#### 정렬 기준
+
+- 시간표 순(요일/교시 기준)으로 정렬
+
+#### 에러 응답
+
+- `400 Bad Request`: `id`가 양의 정수가 아닌 경우
+  ```
+  { "message": "studentId는 양의 정수여야 합니다." }
+  ```
+- `404 Not Found`: 학생이 존재하지 않는 경우
+  ```
+  { "message": "학생을 찾을 수 없습니다." }
+  ```
