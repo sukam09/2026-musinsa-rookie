@@ -151,15 +151,17 @@ function seedCourses(professors: Professor[], departments: Department[]): Course
   return courses;
 }
 
-export function seed(): void {
+export function seed(options?: { silent?: boolean }): void {
   const departments = seedDepartments();
   const professors = seedProfessors(departments);
   seedStudents(departments);
   seedCourses(professors, departments);
 
-  console.log('Seed 완료:');
-  console.log(`- 학과: ${departments.length}개`);
-  console.log(`- 교수: ${professors.length}명`);
-  console.log(`- 학생: 10,000명`);
-  console.log(`- 강좌: 500개`);
+  if (!options?.silent) {
+    console.log('Seed 완료:');
+    console.log(`- 학과: ${departments.length}개`);
+    console.log(`- 교수: ${professors.length}명`);
+    console.log(`- 학생: 10,000명`);
+    console.log(`- 강좌: 500개`);
+  }
 }
