@@ -4,7 +4,7 @@ import { seed } from '../src/db/seed';
 
 describe('GET /students', function studentsSuite() {
   beforeAll(function seedData() {
-    seed();
+    seed({ silent: true });
   });
 
   it('returns all students', async function getAllStudentsTest() {
