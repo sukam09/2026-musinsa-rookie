@@ -143,4 +143,48 @@ http://localhost:3000
 
 ### 수강신청 API
 
+**POST /enrollments**
+
+수강신청을 생성합니다. (1차 구현: 기본 검증 및 중복 방지)
+
+#### 요청 바디
+
+```
+{
+  "studentId": 1,
+  "courseId": 1
+}
+```
+
+#### 성공 응답
+
+- 상태 코드: `201 Created`
+- 응답 예시:
+  ```
+  {
+    "id": 1,
+    "studentId": 1,
+    "courseId": 1,
+    "enrolledAt": "2026-02-08T09:00:00.000Z"
+  }
+  ```
+
+#### 에러 응답
+
+- `400 Bad Request`: `studentId` 또는 `courseId`가 양의 정수가 아닌 경우
+  ```
+  { "message": "studentId는 양의 정수여야 합니다." }
+  ```
+- `404 Not Found`: 학생 또는 강좌가 존재하지 않는 경우
+  ```
+  { "message": "학생을 찾을 수 없습니다." }
+  ```
+  ```
+  { "message": "강좌를 찾을 수 없습니다." }
+  ```
+- `409 Conflict`: 동일 학생이 동일 강좌를 중복 신청한 경우
+  ```
+  { "message": "이미 수강신청된 강좌입니다." }
+  ```
+
 ### 시간표 API
