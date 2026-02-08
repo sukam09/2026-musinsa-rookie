@@ -65,3 +65,40 @@ describe('POST /enrollments', function enrollmentsSuite() {
     expect(response.body).toEqual({ message: 'studentId는 양의 정수여야 합니다.' });
   });
 });
+
+describe('DELETE /enrollments/:id', function deleteEnrollmentsSuite() {
+  beforeAll(function seedData() {
+    seed({ silent: true });
+  });
+
+  it('deletes an enrollment', async function deleteEnrollmentTest() {
+    const app = createApp();
+
+    const createResponse = await request(app)
+      .post('/enrollments')
+      .send({ studentId: 10, courseId: 10 });
+
+    const response = await request(app).delete(`/enrollments/${createResponse.body.id}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject({ studentId: 10, courseId: 10 });
+  });
+
+  it('returns 404 when enrollment does not exist', async function enrollmentNotFoundTest() {
+    const app = createApp();
+
+    const response = await request(app).delete('/enrollments/999999');
+
+    expect(response.status).toBe(404);
+    expect(response.body).toEqual({ message: '수강신청을 찾을 수 없습니다.' });
+  });
+
+  it('returns 400 for invalid id', async function invalidIdTest() {
+    const app = createApp();
+
+    const response = await request(app).delete('/enrollments/abc');
+
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({ message: 'enrollmentId는 양의 정수여야 합니다.' });
+  });
+});

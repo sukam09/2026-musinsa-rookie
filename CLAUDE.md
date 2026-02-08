@@ -103,7 +103,7 @@
 - [x] 교수 API (GET /professors)
 - [x] 강좌 API (GET /courses)
 - [x] 수강신청 API (POST /enrollments)
-- [ ] 수강취소 API (DELETE /enrollments/:id)
+- [x] 수강취소 API (DELETE /enrollments/:id)
 - [ ] 내 시간표 API (GET /students/:id/enrollments)
 
 ### Phase 4: 비즈니스 로직
@@ -121,6 +121,7 @@
 - [x] 교수 목록 테스트 작성
 - [x] 강좌 목록 테스트 작성
 - [x] 수강신청 테스트 작성
+- [x] 수강취소 테스트 작성
 - [ ] 동시성 테스트 작성
 - [ ] 비즈니스 로직 테스트 작성
 - [ ] docs/API.md 작성

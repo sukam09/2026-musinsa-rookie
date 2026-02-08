@@ -3,6 +3,8 @@ import { findStudentById } from '../repositories/studentRepository';
 import { findCourseById, updateCourse } from '../repositories/courseRepository';
 import {
   createEnrollment,
+  deleteEnrollment,
+  findEnrollmentById,
   findEnrollmentByStudentAndCourse,
   getNextEnrollmentId,
 } from '../repositories/enrollmentRepository';
@@ -10,6 +12,10 @@ import {
 type CreateEnrollmentResult =
   | { ok: true; enrollment: Enrollment }
   | { ok: false; reason: 'student_not_found' | 'course_not_found' | 'duplicate' };
+
+type DeleteEnrollmentResult =
+  | { ok: true; enrollment: Enrollment }
+  | { ok: false; reason: 'not_found' | 'course_not_found' };
 
 export function createEnrollmentRequest(
   studentId: number,
@@ -39,6 +45,24 @@ export function createEnrollmentRequest(
 
   createEnrollment(enrollment);
   updateCourse({ ...course, enrolled: course.enrolled + 1 });
+
+  return { ok: true, enrollment };
+}
+
+export function deleteEnrollmentRequest(enrollmentId: number): DeleteEnrollmentResult {
+  const enrollment = findEnrollmentById(enrollmentId);
+  if (!enrollment) {
+    return { ok: false, reason: 'not_found' };
+  }
+
+  const course = findCourseById(enrollment.courseId);
+  if (!course) {
+    return { ok: false, reason: 'course_not_found' };
+  }
+
+  deleteEnrollment(enrollmentId);
+  const nextEnrolled = Math.max(0, course.enrolled - 1);
+  updateCourse({ ...course, enrolled: nextEnrolled });
 
   return { ok: true, enrollment };
 }
