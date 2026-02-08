@@ -82,6 +82,10 @@ npm run build
 npm start
 ```
 
+### 빌드 확인
+
+- `npm run build` 정상 동작 확인
+
 ### 테스트 실행
 
 ```bash
