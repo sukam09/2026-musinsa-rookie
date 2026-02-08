@@ -53,6 +53,11 @@
 - 한 단위의 작업 완료 시 `README.md` 및 `CLAUDE.md` 최신화
 - 중요한 설계 결정 사항은 `docs/REQUIREMENTS.md`에 기록
 
+### 프롬프트 기록
+- 한 단위의 작업 완료 시 사용자가 입력한 프롬프트를 `prompts/` 폴더에 마크다운 파일로 추출
+- 파일명: `XX-작업명.md` 형식 (예: `02-data-model.md`)
+- 내용: 해당 작업에서 사용자가 입력한 프롬프트 원문 기록
+
 ### 커밋 규칙
 - Conventional Commits 규칙 준수 (feat, fix, docs, refactor 등)
 - AI 서명(Co-Authored-By) 제외
